@@ -2,12 +2,13 @@
   "name": "zup",
   "version": "1.0.0",
   "description": "A NodeJS/Express API",
+  "author": "Cleiton Pereira <cleiton.spereira@live.com>",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "Cleiton Pereira <cleiton.spereira@live.com>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",

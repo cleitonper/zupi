@@ -27,7 +27,7 @@ const signin = (request, response) => {
             return response.boom.unauthorized('Invalid email or password.');
           } else if (valid) {
             const token = jwt.sign(
-              { id: user.id },
+              { id: user.id, permissions: user.permissions },
               process.env.JWT_SECRET,
               { expiresIn: process.env.JWT_TTL }
             );

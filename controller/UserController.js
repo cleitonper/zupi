@@ -50,12 +50,13 @@ const update = (request, response) => {
     { new: true, runValidators: true },
     function(error, user) {
       if (error) {
-        if (error.errors.kind === 'unique') {
-          return response.boom.conflict(error.errors.email.message, { detail: error.errors });
+        if (error.name === 'ValidationError') {
+          return response.boom.badData(error._message, { detail: error });
         } else {
-          return response.boom.badData(error.errors._message, { detail: error.errors });
+          return response.status(500).json(error);
         }
       }
+
       if (!user) {
         return response.boom.notFound('User not found.');
       }
