@@ -3,16 +3,23 @@
   "version": "1.0.0",
   "description": "A NodeJS/Express API",
   "author": "Cleiton Pereira <cleiton.spereira@live.com>",
-  "private": true,
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
-  },
   "license": "MIT",
+  "private": true,
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "jest",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration"
+  },
+  "jest": {
+    "testEnvironment": "./tests/environment.js",
+    "globalTeardown": "./tests/teardown.js"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "dotenv-safe": "^6.0.0",
+    "dotenv-safe": "^6.1.0",
     "express": "^4.16.3",
     "express-boom": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
@@ -21,6 +28,11 @@
     "mongoose-beautiful-unique-validation": "^7.1.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "jest": "^23.6.0",
+    "mongodb-memory-server": "^2.2.0",
+    "node-mocks-http": "^1.7.0",
+    "supertest": "^3.3.0",
+    "superagent-defaults": "^0.1.14"
   }
 }

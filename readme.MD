@@ -1,4 +1,4 @@
-# Zupi - My First Node Experiment 🚀
+# Zupi - A NodeJS API 🚀
 
 This project contains a NodeJS API using the followed technologies:
 
@@ -6,6 +6,8 @@ This project contains a NodeJS API using the followed technologies:
 * 💨 [`express`](https://expressjs.com/) - the web framework
 * 🎲 [`mongoose`](https://mongoosejs.com/) - a odm to interact with [`mongodb`](https://www.mongodb.com/)
 * 🔑 [`jwt`](https://jwt.io/) - for authentication
+* ⚗️ [`jest`](https://jestjs.io) - for automated testing
+* 💪 [`supertest`](https://github.com/visionmedia/supertest) - for integration testing
 
 ## How to execute
 
@@ -22,15 +24,23 @@ In order to execute this project, you'll need a copy of his files. Clone this re
 
 ### 3. Set the environment variables
 
-Rename the `.env.example` file to `.env` and fill the **all** the asked fields.
+Copy the `.env.example` file, paste at the root project folder and rename it to `.env` and fill the **all** the asked fields.
 
-### 4. Run the application
+### 4. Run automated tests
+
+Open a terminal at the root project folder and run:
+
+* `npm run test:unit` - for unit tests
+* `npm run test:integration` - for integration tests
+* `npm run test` - for all tests
+
+### 5. Run the application
 
 Open a terminal at the root project folder and run: `npm run dev`
 
 ## How to use
 
-You can use a toll like [`postman`](https://www.getpostman.com/) or [`insomnia`](https://insomnia.rest/download/) to test the resources of this `api`. Listed bellow are some resources avaliables.
+You can use a toll like [`postman`](https://www.getpostman.com/) or [`insomnia`](https://insomnia.rest/download/) to test the resources of this `api`. Make sure the server is running. Listed bellow are some resources avaliables.
 
 ***
 
