@@ -8,6 +8,7 @@ This project contains a NodeJS API using the followed technologies:
 * 🔑 [`jwt`](https://jwt.io/) - for authentication
 * ⚗️ [`jest`](https://jestjs.io) - for automated testing
 * 💪 [`supertest`](https://github.com/visionmedia/supertest) - for integration testing
+* ✔️ [`eslint`](https://eslint.org) - for static code analysis
 
 ## How to execute
 
@@ -26,7 +27,13 @@ In order to execute this project, you'll need a copy of his files. Clone this re
 
 Copy the `.env.example` file, paste at the root project folder and rename it to `.env` and fill the **all** the asked fields.
 
-### 4. Run automated tests
+### 4. Run static code analysis
+
+* `npm run lint:check` - to check all project files
+* `npm run lint:staged` - to check only staged files
+* `npm run lint:write` - to fix all errors detected by lint tool
+
+### 5. Run automated tests
 
 Open a terminal at the root project folder and run:
 
@@ -34,7 +41,7 @@ Open a terminal at the root project folder and run:
 * `npm run test:integration` - for integration tests
 * `npm run test` - for all tests
 
-### 5. Run the application
+### 6. Run the application
 
 Open a terminal at the root project folder and run: `npm run dev`
 
