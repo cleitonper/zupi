@@ -1,4 +1,5 @@
-var jwt = require('jsonwebtoken');
+var jwt =         require('jsonwebtoken');
+const blacklist = require('express-jwt-blacklist');
 
 const User = require('../model/User');
 
@@ -35,8 +36,8 @@ const signin = async (request, response) => {
   }
 };
 
-// TODO: blacklist tokens when logout
 const signout = (request, response) => {
+  blacklist.revoke(request.user);
   return response.json({ token: null });
 };
 

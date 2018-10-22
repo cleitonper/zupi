@@ -1,6 +1,5 @@
 const mockExpressResponse = require('node-mocks-http/lib/express/mock-express').response;
 const mockRequest = require('node-mocks-http/lib/mockRequest');
-const jwt = require('jsonwebtoken');
 
 const AuthMiddleware = require('../../../src/middleware/AuthMiddleware');
 const { generateUsers } = require('../../util');
@@ -36,21 +35,6 @@ describe('Middleware: Auth - Error Cases (401)', () => {
     };
   });
 
-  test('validateToken: should respond with 401 status code when no token is provided', async () => {
-    delete request.headers['authorization'];
-    await AuthMiddleware.validateToken(request, response, next);
-    expect(response.statusCode).toBe(401);
-  });
-
-  test('validateToken: should respond with 401 status code when provided token is invalid', async () => {
-    const verify = jest
-    .spyOn(jwt, 'verify')
-    .mockImplementation(() => Promise.reject({}));
-    await AuthMiddleware.validateToken(request, response, next);
-    expect(response.statusCode).toBe(401);
-    expect(verify).toBeCalled();
-  });
-
   test('validatePermissions [GET]: should respond with 401 status code when user dont have permission to read', () => {
     request.user = { permissions: ['write', 'delete'] };
     request.method = 'GET';
@@ -81,18 +65,6 @@ describe('Middleware: Auth - Error Cases (401)', () => {
 });
 
 describe('Middleware: Auth - Success Cases (200)', () => {
-  test('validateToken: should respond with a token', async () => {
-    const decodedToken = { ...user };
-    const verify = jest
-    .spyOn(jwt, 'verify')
-    .mockImplementation(() => Promise.resolve(decodedToken));
-    await AuthMiddleware.validateToken(request, response, next);
-    expect(response.statusCode).toBe(200);
-    expect(verify).toBeCalledWith(token, process.env.JWT_SECRET);
-    expect(request.user).toEqual(decodedToken);
-    expect(next).toBeCalledTimes(1);
-  });
-
   test('validatePermissions: should allow access to the requested resource', () => {
     request.user = { ...user };
     AuthMiddleware.validatePermissions(request, response, next);

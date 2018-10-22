@@ -1,11 +1,21 @@
-const router = require('express').Router();
+const router =    require('express').Router();
+const jwt =       require('express-jwt');
+const blacklist = require('express-jwt-blacklist');
+blacklist.configure({ tokenId: 'id' });
 
 const AuthMiddleware = require('../middleware/AuthMiddleware');
+const ErrorMiddleware = require('../middleware/ErrorMiddleware');
 
-const openRoutes = ['/', '/signin', '/signup'];
+const OPEN_ROUTES = ['/', '/signin', '/signup'];
 
-router.use('/', AuthMiddleware.validateToken.except(openRoutes));
-router.use('/', AuthMiddleware.validatePermissions.except([...openRoutes, '/signout']));
+const JWT_OPTIONS = {
+  secret: process.env.JWT_SECRET,
+  isRevoked: blacklist.isRevoked
+};
+
+router.use(jwt(JWT_OPTIONS).unless({ path: OPEN_ROUTES }));
+router.use(AuthMiddleware.validatePermissions.unless({ path: [ ...OPEN_ROUTES, '/signout' ] }));
+router.use(ErrorMiddleware.unauthorized);
 
 router.use('/', require('./auth'));
 router.use('/', require('./home'));
