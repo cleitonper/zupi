@@ -9,9 +9,9 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "jest",
-    "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration",
+    "test": "jest -b",
+    "test:unit": "npm run test -- tests/unit",
+    "test:integration": "npm run test -- tests/integration",
     "test:coverage": "jest --coverage",
     "lint:check": "eslint {tests,src,lib}/**/*.js",
     "lint:staged": "lint-staged",
@@ -23,7 +23,7 @@
   },
   "lint-staged": {
     "*.js": "npm run lint:check",
-    "tests/**/*.spec.js": "npm run test -- -b -o --findRelatedTests"
+    "tests/**/*.spec.js": "npm run test -- -o --findRelatedTests"
   },
   "pre-commit": [
     "lint:staged"
