@@ -4,6 +4,7 @@ const blacklist = require('express-jwt-blacklist');
 blacklist.configure({ tokenId: 'id' });
 
 const AuthMiddleware = require('../middleware/AuthMiddleware');
+const LoggerMiddleware = require('../middleware/LoggerMiddleware');
 const ErrorMiddleware = require('../middleware/ErrorMiddleware');
 
 const OPEN_ROUTES = ['/', '/signin', '/signup'];
@@ -15,6 +16,8 @@ const JWT_OPTIONS = {
 
 router.use(jwt(JWT_OPTIONS).unless({ path: OPEN_ROUTES }));
 router.use(AuthMiddleware.validatePermissions.unless({ path: [ ...OPEN_ROUTES, '/signout' ] }));
+router.use(LoggerMiddleware.access);
+router.use(LoggerMiddleware.error);
 router.use(ErrorMiddleware.unauthorized);
 
 router.use('/', require('./auth'));

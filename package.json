@@ -29,6 +29,7 @@
     "lint:staged"
   ],
   "dependencies": {
+    "app-root-path": "^2.1.0",
     "body-parser": "^1.18.3",
     "dotenv-safe": "^6.1.0",
     "express": "^4.16.3",
@@ -39,7 +40,8 @@
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
     "mongoose-bcrypt": "^1.6.0",
-    "mongoose-beautiful-unique-validation": "^7.1.1"
+    "mongoose-beautiful-unique-validation": "^7.1.1",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "eslint": "^5.7.0",
