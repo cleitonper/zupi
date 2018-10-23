@@ -3,6 +3,7 @@ module.exports = function () {
     files: [
       'src/**/*.js',
       'tests/teardown.js',
+      'tests/util.js',
       { pattern: '.env', instrument: false },
       { pattern: '.env.example', instrument: false },
       { pattern: 'lib/**/*.js', instrument: false },
