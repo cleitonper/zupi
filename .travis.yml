@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "lts/*"
+scripts:
+  - npm run lint:check
+  - npm run test
+cache:
+  directories:
+    - "node_modules"
