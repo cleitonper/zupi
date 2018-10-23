@@ -1,4 +1,4 @@
-require('dotenv-safe').config();
+if (process.env.NODE_ENV !== 'ci') require('dotenv-safe').config();
 
 const app =        require('express')();
 const boom =       require('express-boom');
