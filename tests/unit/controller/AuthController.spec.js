@@ -25,6 +25,10 @@ afterEach(() => {
 });
 
 describe('Controller: Auth', () => {
+  test('this test will fail', () => {
+    expect(0).toBe(1);
+  });
+
   test('signin: should respond with 401 status code when email is empty', async () => {
     delete request.body.email;
     await AuthController.signin(request, response);

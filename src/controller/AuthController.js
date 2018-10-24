@@ -4,7 +4,9 @@ const blacklist = require('express-jwt-blacklist');
 const User = require('../model/User');
 
 const signin = async (request, response) => {
-  const { email, password } = request.body;
+  const { email, password } = request.body
+
+  ghost();
 
   if (!email || !password) {
     return response.boom.unauthorized('Email and password must be fulfilled');
