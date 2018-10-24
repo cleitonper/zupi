@@ -7,7 +7,7 @@ const validatePermissions = (request, response, next) => {
     return next();
   }
 
-  return response.boom.unauthorized('You dont have permission to do this.');
+  return response.boom.forbidden('You dont have permission to do this.');
 };
 
 const getPermission = (method) => {
