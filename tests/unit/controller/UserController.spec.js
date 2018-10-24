@@ -47,7 +47,7 @@ describe('Controller: User - Success Cases', () => {
   });
 
   test('store: should return the created user', async () => {
-    await makeTest('store', 'create', 200, users[0]);
+    await makeTest('store', 'create', 201, users[0]);
   });
 
   test('show: should find a user by id', async () => {

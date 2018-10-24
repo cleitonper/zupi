@@ -45,7 +45,7 @@ describe('Route Group: Properties', () => {
       .private()
       .post('/properties')
       .send(property);
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
     expect(response.body).toMatchObject(property);
   });
 

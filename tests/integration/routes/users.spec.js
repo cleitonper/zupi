@@ -47,7 +47,7 @@ describe('Route Group: Users', () => {
       .private()
       .post('/users')
       .send(user);
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
     expect(response.body).toMatchObject(expected);
   });
 

@@ -40,7 +40,7 @@ describe('Controller: Property - Success Cases', () => {
     .mockImplementation(() => property);
     await PropertyController.store(request, response);
     expect(create).toBeCalled();
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
     expect(response.json).toBeCalledWith(property);
   });
 
