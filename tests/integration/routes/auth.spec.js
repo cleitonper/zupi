@@ -48,7 +48,7 @@ describe('Route Group: Auth', () => {
       .send(user);
     delete user.password;
     const createdUser = response.body;
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
     expect(createdUser).toMatchObject(user);
   });
 });

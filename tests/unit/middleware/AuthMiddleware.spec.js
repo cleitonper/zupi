@@ -28,39 +28,39 @@ afterEach(() => {
   next = null;
 });
 
-describe('Middleware: Auth - Error Cases (401)', () => {
+describe('Middleware: Auth - Error Cases (403)', () => {
   beforeEach(() => {
     response.boom = {
-      unauthorized: jest.fn(() => response.statusCode = 401)
+      forbidden: jest.fn(() => response.statusCode = 403)
     };
   });
 
-  test('validatePermissions [GET]: should respond with 401 status code when user dont have permission to read', () => {
+  test('validatePermissions [GET]: should respond with 403 status code when user dont have permission to read', () => {
     request.user = { permissions: ['write', 'delete'] };
     request.method = 'GET';
     AuthMiddleware.validatePermissions(request, response, next);
-    expect(response.statusCode).toBe(401);
+    expect(response.statusCode).toBe(403);
   });
 
-  test('validatePermissions [POST]: should respond with 401 status code when user dont have permission to write', () => {
+  test('validatePermissions [POST]: should respond with 403 status code when user dont have permission to write', () => {
     request.user = { permissions: ['read', 'delete'] };
     request.method = 'POST';
     AuthMiddleware.validatePermissions(request, response, next);
-    expect(response.statusCode).toBe(401);
+    expect(response.statusCode).toBe(403);
   });
 
-  test('validatePermissions [PUT]: should respond with 401 status code when user dont have permission to write', () => {
+  test('validatePermissions [PUT]: should respond with 403 status code when user dont have permission to write', () => {
     request.user = { permissions: ['read', 'delete'] };
     request.method = 'PUT';
     AuthMiddleware.validatePermissions(request, response, next);
-    expect(response.statusCode).toBe(401);
+    expect(response.statusCode).toBe(403);
   });
 
-  test('validatePermissions [DELETE]: should respond with 401 status code when user dont have permission to write', () => {
+  test('validatePermissions [DELETE]: should respond with 403 status code when user dont have permission to write', () => {
     request.user = { permissions: ['read', 'write'] };
     request.method = 'DELETE';
     AuthMiddleware.validatePermissions(request, response, next);
-    expect(response.statusCode).toBe(401);
+    expect(response.statusCode).toBe(403);
   });
 });
 

@@ -16,7 +16,7 @@ const index = async (request, response) => {
 const store = async (request, response) => {
   try {
     const user = await User.create(request.body);
-    return response.json(user);
+    return response.status(201).json(user);
   } catch(error) {
     if (error.name && error.name === 'ValidationError') {
       return response.boom.badData(error._message, { detail: error.errors });
@@ -61,7 +61,7 @@ const destroy = async (request, response) => {
   try {
     const user = await User.findOneAndDelete(conditions, options);
     if (!user) return response.boom.notFound('User not found');
-    return response.json(user);
+    return response.status(204).send();
   } catch(error) {
     return response.boom.badImplementation();
   }

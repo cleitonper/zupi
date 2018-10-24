@@ -47,7 +47,7 @@ describe('Controller: User - Success Cases', () => {
   });
 
   test('store: should return the created user', async () => {
-    await makeTest('store', 'create', 200, users[0]);
+    await makeTest('store', 'create', 201, users[0]);
   });
 
   test('show: should find a user by id', async () => {
@@ -59,7 +59,7 @@ describe('Controller: User - Success Cases', () => {
   });
 
   test('destroy: should delete a user', async () => {
-    await makeTest('destroy', 'findOneAndDelete', 200, users[0]);
+    await makeTest('destroy', 'findOneAndDelete', 204, users[0]);
   });
 });
 

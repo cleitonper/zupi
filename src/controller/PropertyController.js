@@ -9,7 +9,7 @@ const index = async (request, response) => {
 
 const store = async (request, response) => {
   const property = request.body;
-  return promiseResove(Property.create(property), resove(response));
+  return promiseResove(Property.create(property), resove(response), 201);
 };
 
 const show = async (request, response) => {
@@ -29,7 +29,7 @@ const update = async (request, response) => {
 const destroy = async (request, response) => {
   const conditions = { _id: request.params.id };
   const options = { lean: true };
-  promiseResove(Property.findOneAndDelete(conditions, options), resove(response));
+  promiseResove(Property.findOneAndDelete(conditions, options), resove(response), 204);
 };
 
 
