@@ -59,7 +59,7 @@ describe('Controller: User - Success Cases', () => {
   });
 
   test('destroy: should delete a user', async () => {
-    await makeTest('destroy', 'findOneAndDelete', 200, users[0]);
+    await makeTest('destroy', 'findOneAndDelete', 204, users[0]);
   });
 });
 

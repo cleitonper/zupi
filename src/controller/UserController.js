@@ -61,7 +61,7 @@ const destroy = async (request, response) => {
   try {
     const user = await User.findOneAndDelete(conditions, options);
     if (!user) return response.boom.notFound('User not found');
-    return response.json(user);
+    return response.status(204).send();
   } catch(error) {
     return response.boom.badImplementation();
   }

@@ -77,7 +77,6 @@ describe('Route Group: Users', () => {
     const response = await request
       .private()
       .delete(`/users/${userToDelete._id}`);
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(userToDelete);
+    expect(response.statusCode).toBe(204);
   });
 });

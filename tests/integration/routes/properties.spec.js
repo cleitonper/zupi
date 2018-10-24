@@ -75,7 +75,6 @@ describe('Route Group: Properties', () => {
     const response = await request
       .private()
       .delete(`/properties/${propertyToDelete._id}`);
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual(propertyToDelete);
+    expect(response.statusCode).toBe(204);
   });
 });
