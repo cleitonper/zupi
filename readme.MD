@@ -1,5 +1,7 @@
 # Zupi - A NodeJS API 🚀
 
+[![Build Status](https://travis-ci.org/cleitonper/zupi.svg?branch=master)](https://travis-ci.org/cleitonper/zupi)
+
 This project contains a NodeJS API using the followed technologies:
 
 * 🔥 [`node`](https://nodejs.org/) - as web server
