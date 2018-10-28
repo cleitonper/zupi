@@ -10,7 +10,7 @@ const ErrorMiddleware = require('../middleware/ErrorMiddleware');
 const OPEN_ROUTES = [
   '/',
   '/signin', '/signup',
-  '/forgot-password', /\/reset-password\/./
+  '/forgot-password', '/reset-password'
 ];
 const OPEN_FORMATS = ['css', 'svg', 'ico'];
 

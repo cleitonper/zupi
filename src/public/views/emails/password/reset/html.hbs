@@ -1,5 +1,23 @@
-<p>Reset your password here!!</p>
+{{#if token }}
+  <form class="form-block" method="post" action="{{ resetPassLink }}">
+    <input type="hidden" name="token" value="{{ token }}">
+    <div class="form-group">
+      <label for="password">New password</label>
+      <input type="password" name="password" id="password" required minlength="6">
+    </div>
+    <button class="call-to-action" type="submit">Confirm</button>
+  </form>
+{{/if}}
 
-<div style="word-break: break-all;">
-  {{ token }}
-</div>
+{{#if userName }}
+  <p>
+    {{ userName }}, your password has successful updated.
+    Close this page and <strong>enjoy Zupi services.</strong>
+  </p>
+{{/if}}
+
+{{#if error }}
+  <p>
+    {{ error }}
+  </p>
+{{/if}}

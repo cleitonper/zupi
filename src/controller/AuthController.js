@@ -4,6 +4,8 @@ const blacklist = require('express-jwt-blacklist');
 const Mailer = require('../mailer');
 const User = require('../model/User');
 
+const { debugLogger } = require('../logger');
+
 const signin = async (request, response) => {
   const { email, password } = request.body;
 
@@ -66,11 +68,11 @@ const forgotPassword = async (request, response) => {
     const options = { expiresIn: resetPassTTL };
     const token   = jwt.sign(payload, secret, options);
 
-    const resetPassLink = `${protocol}://${hostname}:${port}/reset-password/${token}`;
+    const resetPassLink = `${protocol}://${hostname}:${port}/reset-password?token=${token}`;
 
     const mailer = Mailer.create();
 
-    await mailer.send({
+    mailer.send({
       template: 'password/forgot',
       message: {
         to: `${name} <${email}>`,
@@ -84,17 +86,78 @@ const forgotPassword = async (request, response) => {
   }
 };
 
-const resetPassword = (request, response) => {
+const resetPassword = async (request, response) => {
   const view = 'emails/password/reset/html';
   const layout = 'emails/layout/default';
-  const { token } = request.params;
+  const { token } = request.query;
+  const { userName, passwordResetError }  = request.session;
+  request.session.destroy();
 
-  response.render(view, { layout, token });
+  if (passwordResetError || (!userName && !token) ) {
+    response.render(view, { layout, error: 'This link is invalid. If you need, request a new one to reset your password.' });
+  }
+
+  if (userName) {
+    response.render(view, { layout,  userName });
+  }
+
+  if (token) {
+    const { id } = jwt.decode(token);
+
+    const filters = { _id: id };
+    const fields = { _id: 0, updatedAt: 1 };
+    const options = { lean: true };
+
+    const { updatedAt } = await User.findOne(filters, fields, options);
+
+    const secret  = `${id}-${updatedAt}`;
+
+    jwt.verify(token, secret, (tokenValidationError) => {
+      if (!tokenValidationError) {
+        const { protocol, hostname } = request;
+        const port = process.env.PORT;
+        const resetPassLink = `${protocol}://${hostname}:${port}/reset-password`;
+
+        response.render(view, { layout, token, resetPassLink });
+      }
+      response.render(view, { layout, error: 'This link is invalid. If you need, request a new one to reset your password.' });
+    });
+  }
+};
+
+const changePassword = async (request, response) => {
+  const { token } = request.body;
+  const { id } = jwt.decode(token);
+
+  try {
+    let filters = { _id: id };
+    let fields = { _id: 0, updatedAt: 1 };
+    let options = { lean: true };
+
+    const { updatedAt } = await User.findOne(filters, fields, options);
+
+    const secret  = `${id}-${updatedAt}`;
+
+    jwt.verify(token, secret, async (tokenValidationError) => {
+      if(tokenValidationError) {
+        request.session.passwordResetError = true;
+      }
+      options = { ...options, new: true };
+      const update = { $set: { password: request.body.password } };
+
+      const { name } = await User.findOneAndUpdate(filters, update, options);
+      request.session.userName = name;
+      response.redirect('/reset-password');
+    });
+  } catch(error) {
+    debugLogger.error('Error: ' + error);
+  }
 };
 
 module.exports = {
   signin: signin,
   signout: signout,
   forgotPassword: forgotPassword,
-  resetPassword: resetPassword
+  resetPassword: resetPassword,
+  changePassword: changePassword,
 };

@@ -31,6 +31,7 @@
   "dependencies": {
     "app-root-path": "^2.1.0",
     "body-parser": "^1.18.3",
+    "connect-redis": "^3.4.0",
     "dotenv-safe": "^6.1.0",
     "email-templates": "^5.0.2",
     "express": "^4.16.3",
@@ -38,12 +39,14 @@
     "express-handlebars": "^3.0.0",
     "express-jwt": "^5.3.1",
     "express-jwt-blacklist": "^1.1.0",
+    "express-session": "^1.15.6",
     "express-unless": "^0.5.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
     "mongoose-bcrypt": "^1.6.0",
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "nodemailer": "^4.6.8",
+    "redis": "^2.8.0",
     "winston": "^3.1.0"
   },
   "devDependencies": {

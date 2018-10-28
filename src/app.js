@@ -4,6 +4,13 @@ const rootPath =   require('app-root-path');
 const express =    require('express');
 const boom =       require('express-boom');
 const bodyParser = require('body-parser');
+const session =    require('express-session');
+const SessionRedis = require('connect-redis')(session);
+
+const sessionStore = new SessionRedis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT
+});
 
 const app = express();
 
@@ -14,6 +21,13 @@ app.engine('hbs', require('express-handlebars')( {
   defaultView: 'index',
   layoutsDir: `${rootPath}/src/public/views`,
   partialsDir: `${rootPath}/src/public/views/partials`
+}));
+
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.SESSION_SECRET,
+  store: sessionStore,
 }));
 
 app.use(bodyParser.json());
